@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- <title>Map</title> -->
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta charset="utf-8">
+  <style>
+    #map {
+      width: 710px;
+      height: 500px;
+      position: absolute;
+      z-index: -1
+    }
+    body {
+      background-color: "#DCDCDC";
+    }
+   h1 {
+     text-align: center;
+     background-color:#AFEEEE;
+     border-bottom-width: 7px;
+     border-bottom-style: groove;
+     border-bottom-color: #483D8B;
+     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+   }
+   #legend {
+        background: #FFF;
+        padding: 10px;
+        margin: 5px;
+        font-size: 12px;
+        font-family: Arial, sans-serif;
+      }
+      .color {
+          border: 1px solid;
+          height: 12px;
+          width: 12px;
+          margin-right: 3px;
+          float: left;
+        }
+      .red {
+          background: #C00;
+        }
+        .blue {
+          background: #06C;
+        }
+      .black {
+        background: #000;
+      }
+
+  </style>
+</head>
+
+<body>
+  <div id="map"></div>
+
+
+  <script>
+    function InitMap(){
+      var mapdiv = document.getElementById("map");
+      var map = new google.maps.Map(mapdiv, {
+            center: {lat:35.029, lng:-43.066},
+            zoom: 2
+        });
+      map.setMapTypeId('hybrid');
+        var transitLayer = new google.maps.TransitLayer();
+        transitLayer.setMap(map);
+        var trafficLayer = new google.maps.TrafficLayer();
+        trafficLayer.setMap(map); //These add transit and traffic data to the map.
+        var legend = document.createElement('div');
+          legend.id = 'legend';
+          var content = [];
+          content.push('<h3>Legend</h3>');
+          content.push('<p><div class="color red"></div>Most Recent </p>');
+          content.push('<p><div class="color blue"></div>Less Recent</p>');
+          content.push('<p><div class="color black"></div>Ongoing</p>');
+          legend.innerHTML = content.join('');
+          legend.index = 1;
+          map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(legend);
+      var home = '<div id="content">'+
+          '<div id="siteNotice">'+
+          '</div>'+
+          '<h2>Pakistan</h2>'+
+          '<p>Terrorism in Pakistan has become a major and highly destructive phenomenon in recent years. In fact, this year there have been numerous attacks. Like an attack on Quetta, a city in Pakistan, or a bomb that detonates a bus. The lastest attack was a hospital bomb attack that killed at least 70 people, which ISIS took responsibility for.</p>'+
+          '</div>'+
+          '</div>'+
+          '<iframe src="http://www.bbc.com/news/world-asia-37007661" name="targetframe" allowTransparency="true" scrolling="yes" frameborder="0" width = "100%"> </iframe>';
+//This is a variable for the content of the info window.
+      var infowindow1 = new google.maps.InfoWindow({
+          content: home
+      });
+      //This calls the function InfoWindow and tells it to include the content.
+        var marker1 = new google.maps.Marker({
+            position: {lat: 30.001, lng: 69.352},
+            draggable: false,
+
+            animation: google.maps.Animation.DROP,
+            map: map,
+
+        });
+      //This places the marker at a location and gives it specifications.
+      marker1.addListener('click', function() {
+          infowindow1.open(map, marker1);
+      });
+      //When the marker is clicked, its info window opens.
+        var cocoagrinder = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h2>Afghanistan</h2>'+
+            '<p> Following the 11 September 2001 terrorist attacks, a US, Allied, and anti-Taliban Northern Alliance military action toppled the Taliban for sheltering Osama bin Ladin. In the period in which the United States invaded Afghanistan after the September 11 attacks. Supported initially by close allies, they were later joined by NATO beginning in 2003. Its public aims were to dismantle al-Qaeda and to deny it a safe base of operations in Afghanistan by removing the Taliban from power.</p>'+
+            '</div>'+
+            '</div>'+
+            '<iframe src="http://www.cnn.com/2016/04/19/asia/kabul-explosion/" name="targetframe" allowTransparency="true" scrolling="yes" frameborder="0" width = "100%"> </iframe>';
+
+        var infowindow2 = new google.maps.InfoWindow({
+            content: cocoagrinder
+        });
+          var marker2 = new google.maps.Marker({
+              position: {lat: 33.654, lng:64.862},
+              draggable: false,
+              icon: {
+                path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                scale: 5
+              },
+              animation: google.maps.Animation.DROP,
+              map: map,
+          });
+          marker2.addListener('click', function() {
+              infowindow2.open(map, marker2);
+          });
+          var dunkin = '<div id="content">'+
+                  '<div id="siteNotice">'+
+                  '</div>'+
+                  '<h2>Israel/Palestine</h2>'+
+                  '<p>Both Israel and the Palestinians have resorted to terrorism at various times during the course of their long conflict. Recently, an increase of violence occurred in the Israeli–Palestinian conflict starting early September 2015, known as the "Wave of Terror". The ongoing conflict between Israel and Palestine is known as the Israeli-Palestine Conflict.</p>'+
+                  '</div>'+
+                  '</div>'+
+                  '<iframe src="http://www.huffingtonpost.co.uk/dave-cohen/israel-palestine-gaza_b_2169928.html" name="targetframe" allowTransparency="true" scrolling="yes" frameborder="0" width = "100%"> </iframe>';
+
+          var infowindow3 = new google.maps.InfoWindow({
+                  content: dunkin
+          });
+          var marker3 = new google.maps.Marker ({
+                    position: {lat:31.009, lng:34.856},
+                    draggable: false,
+                    icon: {
+                      path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                      scale: 5
+                    },
+                    animation: google.maps.Animation.DROP,
+                    map: map,
+          });
+            marker3.addListener('click', function() {
+                    infowindow3.open(map, marker3);
+                  });
+            var shoreroad = '<div id="content">'+
+                        '<div id="siteNotice">'+
+                        '</div>'+
+                        '<h2>Syria</h2>'+
+                        '<p> The Syrian Arab Republic has been a victim of terrorism, and ever since the Syrian Civil War, Syria has been swept by multiple terrorist attacks. The Syrian government itself has been accused of engaging in state sponsored terrorism by President George W. Bush and by the U.S. State Department from 1979 to today.However, Syria has assisted the United States and other governments in their opposition to al-Qaeda.  </p>'+
+                        '</div>'+
+                        '</div>'+
+                        '<iframe src="http://www.bbc.co.uk/newsround/16979186" name="targetframe" allowTransparency="true" scrolling="yes" frameborder="0" width = "100%"> </iframe>';
+
+
+            var infowindow4 = new google.maps.InfoWindow({
+                        content: shoreroad
+            });
+            var marker4 = new google.maps.Marker ({
+                          position: {lat:35.029, lng:38.495},
+                          draggable: false,
+                          icon: {
+                            path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                            scale: 5
+                          },
+                          animation: google.maps.Animation.DROP,
+                          map: map,
+            });
+            marker4.addListener('click', function() {
+                            infowindow4.open(map, marker4);
+            });
+            var chipotle = '<div id="content">'+
+                              '<div id="siteNotice">'+
+                              '</div>'+
+                              '<h2>Belgium</h2>'+
+                              '<p>Before the occurring bombings, several terrorist attacks had originated from Belgium, and a number of counter-terrorist operations have been carried out there. Recently, there have been several attacks in Belgium. The latest one was the one that ISIS claimed responsibility for, where two police officers where wounded by a machete attack. </p>'+
+                              '</div>'+
+                              '</div>'+
+                              '<iframe src="http://www.cnn.com/2016/08/06/europe/belgium-police-attack/" name="targetframe" allowTransparency="true" scrolling="yes" frameborder="0" width = "100%"> </iframe>';
+
+              var infowindow5 = new google.maps.InfoWindow({
+                              content: chipotle
+              });
+              var marker5 = new google.maps.Marker ({
+                                position: {lat:50.511, lng:4.928},
+                                draggable: false,
+                                icon:
+                                  'bluemarker.jpg'
+                                ,
+                                animation: google.maps.Animation.DROP,
+                                map: map,
+              });
+                marker5.addListener('click', function() {
+                                  infowindow5.open(map, marker5);
+                });
+                var karam = '<div id="content">'+
+                                    '<div id="siteNotice">'+
+                                    '</div>'+
+                                    '<h2>Paris, France</h2>'+
+                                    '<p>The November 2015 Paris attacks, also referred to as 11/13, were three suicide bombings that were followed by several mass shootings at cafés and restaurants. 130 people were killed and another 368 people were injured. President  François Hollande claimed that the attacks were an act of war by ISIL planned in Syria, organised in Belgium, and perpetrated with help from citizens of France.  </p>'+
+                                    '</div>'+
+                                    '</div>'+
+                                    '<iframe src="http://www.bbc.com/news/world-europe-34818994" name="targetframe" allowTransparency="true" scrolling="yes" frameborder="0" width = "100%"> </iframe>';
+
+                var infowindow6 = new google.maps.InfoWindow({
+                                    content: karam
+                });
+                var marker6 = new google.maps.Marker ({
+                                      position: {lat:48.893, lng:2.372},
+                                      draggable: false,
+                                      icon:
+                                        'bluemarker.jpg'
+                                      ,
+                                      animation: google.maps.Animation.DROP,
+                                      map: map,
+                });
+                  marker6.addListener('click', function() {
+                                        infowindow6.open(map, marker6);
+                  });
+                    var alpine = '<div id="content">'+
+                                          '<div id="siteNotice">'+
+                                          '</div>'+
+                                          '<h2>New York, New York</h2>'+
+                                          '<p>The September 11 attacks, also referred to as 9/11, were a series of coordinated terrorist attacks by the terrorist group, al-Qaeda. The attacks, led by Osama bin Laden, killed 2,996 people and injured over 6,000 others. Four planes were hijacked, two crashed into the the Twin Towers in the World Trade Center, one crashed into the Pentagon in Virginia, and the last plane was heading towards Washington D.C. but crashed in Pennsylvania instead. Following the attacks, President Bush delared the War on Terror. </p>'+
+                                          '</div>'+
+                                          '</div>'+
+                                          '<iframe src="http://www.history.com/topics/9-11-attacks" name="targetframe" allowTransparency="true" scrolling="yes" frameborder="0" width = "100%"> </iframe>';
+
+                    var infowindow7 = new google.maps.InfoWindow({
+                                          content: alpine
+                    });
+                    var marker7 = new google.maps.Marker ({
+                                            position: {lat:40.697, lng:-73.960},
+                                            draggable: false,
+                                            icon:
+                                              'bluemarker.jpg'
+                                            ,
+                                            animation: google.maps.Animation.DROP,
+                                            map: map,
+                      });
+                      marker7.addListener('click', function() {
+                                              infowindow7.open(map, marker7);
+                      });
+                      var cali = '<div id="content">'+
+                                            '<div id="siteNotice">'+
+                                            '</div>'+
+                                            '<h2>San Bernardino, California</h2>'+
+                                            '<p>On December 2, 2015, there was a terrorist attack at the Inland Regional Center, which consisted of a mass shooting and an attempted suicide bombing. 14 people were killed and 22 were seriously injured. The attack was orchestrated by a married couple and after the shooting, they fled in a rented SUV. They were later killed in a shootout with the police. The FBI opened a counter-terrorism investigation and President Obama defined the shooting as an act of terrorism.</p>'+
+                                            '</div>'+
+                                            '</div>'+
+                                            '<iframe src="http://www.cnn.com/specials/san-bernardino-shooting" name="targetframe" allowTransparency="true" scrolling="yes" frameborder="0" width = "100%"> </iframe>';
+
+                      var infowindow8 = new google.maps.InfoWindow({
+                                            content: cali
+                      });
+                      var marker8 = new google.maps.Marker ({
+                                              position: {lat:34.102, lng:-117.290},
+                                              draggable: false,
+                                              icon:
+                                                'bluemarker.jpg'
+                                              ,
+                                              animation: google.maps.Animation.DROP,
+                                              map: map,
+                        });
+                        marker8.addListener('click', function() {
+                                                infowindow8.open(map, marker8);
+                        });
+                        var orlando = '<div id="content">'+
+                                              '<div id="siteNotice">'+
+                                              '</div>'+
+                                              '<h2>Orlando, Florida</h2>'+
+                                              '<p>On June 12, 2016, there was a terrorist attack-also considered a hate crime- inside Pulse, a gay nightclub in Orlando. The shooter claimed to be with ISIL, however the FBI and the CIA conducted an investigation and found no evidence that linked ISIL and the shooter. 49 people were killed and 53 others were wounded. It was the deadliest mass shooting by a single shooter, the deadliest incident of violence against LGBT people and the deadliest terroriest attack in the U.S. since 9/11. </p>'+
+                                              '</div>'+
+                                              '</div>'+
+                                              '<iframe src="http://www.cnn.com/2016/06/12/us/orlando-nightclub-shooting/" name="targetframe" allowTransparency="true" scrolling="yes" frameborder="0" width = "100%"> </iframe>';
+
+                        var infowindow9 = new google.maps.InfoWindow({
+                                              content: orlando
+
+                        });
+                        var marker9 = new google.maps.Marker ({
+                                                position: {lat:28.536, lng:-81.386},
+                                                draggable: false,
+                                                icon:
+                                                  'bluemarker.jpg'
+                                                ,
+                                                animation: google.maps.Animation.DROP,
+                                                map: map,
+                          });
+                          marker9.addListener('click', function() {
+                                                  infowindow9.open(map, marker9);
+                          });
+
+      }
+
+  </script>
+  <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAtv1FM24w2XXcB011iiWJpte0n4E0Rg0&callback=InitMap&signed_in=true">//The source has a signed in attribute which will sign the user in
+  </script>
+<style>
+infowindow9
+
+
+</body>
+</html>
